@@ -50,14 +50,15 @@
         <DefineConstants>$(DefineConstants);DEBUG</DefineConstants>
         <DebugSymbols>true</DebugSymbols>
         <DefineDebug>true</DefineDebug>
-        <DebugType>full</DebugType>
+        <DebugType>portable</DebugType>
+        <Optimize>false</Optimize>
         <DefineTrace>true</DefineTrace>
     </PropertyGroup>
     <PropertyGroup Condition="$(Configuration.Contains('Release'))">
         <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
-        <DebugSymbols>true</DebugSymbols>
+        <DebugSymbols>false</DebugSymbols>
         <DefineDebug>false</DefineDebug>
-        <DebugType>pdbonly</DebugType>
+        <DebugType>none</DebugType>
         <Optimize>true</Optimize>
         <DefineTrace>true</DefineTrace>
     </PropertyGroup>
@@ -78,13 +79,12 @@
     <!-- Add environment-specific appsettings.json file -->
     <ItemGroup>
         <EmbeddedResource Include="$(AppSettingsFile)" />
-        <AssemblyAttribute Include="MauiDemo.AppSettingsFileAttribute">
-            <_Parameter1>$(AppSettingsFile)</_Parameter1>
-        </AssemblyAttribute>
     </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="JsonPeek" Version="1.2.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.4" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
     </ItemGroup>
 
