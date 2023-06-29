@@ -53,6 +53,7 @@
         <DebugType>portable</DebugType>
         <Optimize>false</Optimize>
         <DefineTrace>true</DefineTrace>
+        <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     </PropertyGroup>
     <PropertyGroup Condition="$(Configuration.Contains('Release'))">
         <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
@@ -78,6 +79,7 @@
 
     <!-- Add environment-specific appsettings.json file -->
     <ItemGroup>
+        <None Remove="appsettings.*.json" />
         <EmbeddedResource Include="$(AppSettingsFile)" />
     </ItemGroup>
 
