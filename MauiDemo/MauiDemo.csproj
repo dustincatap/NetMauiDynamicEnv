@@ -12,11 +12,11 @@
         <Nullable>enable</Nullable>
         <LangVersion>11</LangVersion>
         <ApplicationIdGuid>9911004e-28dc-4a16-8e1b-9401a3554f1b</ApplicationIdGuid>
-        
+
         <!-- Versions -->
         <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
         <ApplicationVersion>1</ApplicationVersion>
-        
+
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
@@ -80,14 +80,31 @@
     <!-- Add environment-specific appsettings.json file -->
     <ItemGroup>
         <None Remove="appsettings.*.json" />
-        <EmbeddedResource Include="$(AppSettingsFile)" />
+        <EmbeddedResource Include="$(AppSettingsFile)" LogicalName="appsettings.json" />
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="Autofac" Version="7.0.1" />
+        <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
+        <PackageReference Include="CommunityToolkit.Maui" Version="5.1.0" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
         <PackageReference Include="JsonPeek" Version="1.2.0" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.4" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <MauiXaml Update="Views\MainPage.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Views\MainPage.xaml.cs">
+        <DependentUpon>MainPage.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
     </ItemGroup>
 
     <Target Name="ReadDefineConstants" BeforeTargets="Build">
@@ -114,7 +131,7 @@
             <!-- App Identifier -->
             <ApplicationId>com.companyname.mauidemo$(AppIdSuffix)</ApplicationId>
         </PropertyGroup>
-        
+
         <Message Importance="high" Text="Building $(AppName) ($(ApplicationId))" />
     </Target>
 </Project>
